@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 62.5%;
+            scroll-behavior: smooth;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        section {
+            margin: 0 auto;
+            /*sørger for at mit indhold er i midten*/
+            max-width: 1000px;
+            padding: 20px;
+            margin-bottom: 8vw;
+            /*når vi bruger den her form for grid uden @media, så skal vi i vores html ikke bruge wrapper og overskrifterne må ikke være i sectionnen, da den regner det med som et element.*/
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-gap: 20px;
+        }
+
+        header {
+            border-bottom: solid grey 2px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: black;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 3rem;
+            color: black;
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        h3 {
+            font-size: 2.5rem;
+            color: black;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+            color: grey;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: black;
+
+        }
+
+        article {
+            border: grey solid 0.5px;
+            padding: 3vw;
+
+        }
+
+        footer {
+            text-align: center;
+            border-top: solid grey 2px;
+        }
+
+    </style>
+</head>
+
+<header>
+    <h1>Sophie har lavet en ny plakat</h1>
+</header>
+
+<body>
+    <main>
+        <h2>Giveaway</h2>
+        <section id="section_1">
+            <article>
+                <img src="IMG/giveaway3-kopi.png" alt="billed af sophie med plakat">
+                <h3>Plakat "Venskab"</h3>
+                <p>P1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus adipisci modi eos dignissimos, eligendi soluta praesentium, eius accusamus doloremque veniam. Eius a nulla earum quas quaerat perspiciatis placeat! Et, impedit.</p>
+            </article>
+            <article>
+                <img src="IMG/giveaway1-kopi.png" alt="billed af plakat">
+                <h3>Flot plakat</h3>
+                <p>P2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus adipisci modi eos dignissimos, eligendi soluta praesentium, eius accusamus doloremque veniam. Eius a nulla earum quas quaerat perspiciatis placeat! Et, impedit.</p>
+            </article>
+
+
+        </section>
+
+    </main>
+    <footer>
+        <h4>Copyright Sophie Ohmsen</h4>
+    </footer>
+    <script>
+        //følgende er med til at vi lærer, hvordan vi kan ændre i DOM og tilføje samt fange de rigtige elementer i vores HTML. Fx bruges det her, når en bruger fx skal trykke på en fold ud boks. med hjælp fra JS kan vi tilføje og gemme text i en fold udboks, som ikke normalt står i vores HTML.
+        const h1 = document.querySelector("h1");
+        console.log(h1.textContent);
+
+        const h2 = document.querySelector("h2");
+        console.log(h2.textContent);
+
+        const overskrift = document.querySelector("h3");
+        console.log(overskrift.textContent);
+
+        //child(2) svarer til article nr 2.
+        const overskrift2 = document.querySelector("article:nth-child(2) h3");
+        console.log(overskrift2.textContent);
+
+        const h4 = document.querySelector("h4");
+        console.log(h4.textContent);
+
+        //her ændre vi billedet
+        const pic1 = document.querySelector("article:nth-child(1) img");
+        pic1.src = "IMG/giveaway1-kopi.png";
+        pic1.alt = "hej jeg har ændret teksten";
+
+    </script>
+</body>
+
+</html>
