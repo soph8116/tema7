@@ -23,6 +23,10 @@ section {
     max-width: 1000px;
     padding: 20px;
     margin-bottom: 8vw;
+    /*når vi bruger den her form for grid uden @media, så skal vi i vores html ikke bruge wrapper og overskrifterne må ikke være i sectionnen, da den regner det med som et element.*/
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 20px;
 }
 
 header {
@@ -48,6 +52,11 @@ h3 {
     color: black;
 }
 
+h4 {
+    font-size: 1.5rem;
+    color: grey;
+}
+
 p {
     font-size: 1.5rem;
     color: black;
@@ -63,11 +72,4 @@ article {
 footer {
     text-align: center;
     border-top: solid grey 2px;
-}
-
-
-#section_1 .section_wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 2vw;
 }
