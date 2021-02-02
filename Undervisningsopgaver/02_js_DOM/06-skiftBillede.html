@@ -114,27 +114,43 @@
         <h4>Copyright Sophie Ohmsen</h4>
     </footer>
     <script>
-        let mainSection = document.querySelector("section");
-        //nyt article element
-        let newArticle = document.createElement("article");
-        //ny h3
-        let overskrift = document.createElement("h3");
-        //ny tekst
-        let ph3 = document.createTextNode("Article 3");
-        //lav tekst under h3
-        let tekst = document.createElement("p");
-        tekst.innerHTML = "du kan vinde fede præmier. Deltag via instagram";
+        document.addEventListener("DOMContentLoaded", start);
 
-        //indsæt tekst i h3
-        overskrift.appendChild(ph3);
-        //tilføj h3 til artikel
-        newArticle.appendChild(overskrift);
-        //indsæt tekst som p
-        newArticle.appendChild(tekst);
-        // tilføj article til section
-        mainSection.appendChild(newArticle);
+
+        function start() {
+            console.log("dom er loaded");
+
+            let mainSection = document.querySelector("section");
+            //nyt article element
+            let newArticle = document.createElement("article");
+            //ny h3
+            let overskrift = document.createElement("h3");
+            //ny tekst
+            let ph3 = document.createTextNode("Article 3");
+            //lav tekst under h3
+            let tekst = document.createElement("p");
+            tekst.innerHTML = "du kan vinde fede præmier. Deltag via instagram";
+            //indsæt tekst i h3
+            overskrift.appendChild(ph3);
+            //tilføj h3 til artikel
+            newArticle.appendChild(overskrift);
+            //indsæt tekst som p
+            newArticle.appendChild(tekst);
+            // tilføj article til section
+            mainSection.appendChild(newArticle);
+
+        }
+
+        let billede = document.querySelector("article:nth-child(1) img");
+
+        billede.addEventListener("mouseover", skiftBillede);
+
+        function skiftBillede() {
+            //her ændre vi billedet
+            const pic1 = document.querySelector("article:nth-child(1) img");
+            pic1.src = "IMG/giveaway2-kopi.png";
+            pic1.alt = "hej jeg har ændret teksten";
+        }
 
     </script>
 </body>
-
-</html>
