@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+img {
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+section {
+    margin: 0 auto;
+    /*sørger for at mit indhold er i midten*/
+    max-width: 1000px;
+    padding: 20px;
+    margin-bottom: 8vw;
+}
+
+header {
+    border-bottom: solid grey 2px;
+}
+
+h1 {
+    font-size: 4rem;
+    color: black;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+h2 {
+    font-size: 3rem;
+    color: black;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+h3 {
+    font-size: 2.5rem;
+    color: black;
+}
+
+p {
+    font-size: 1.5rem;
+    color: black;
+
+}
+
+article {
+    border: grey solid 0.5px;
+    padding: 3vw;
+
+}
+
+footer {
+    text-align: center;
+    border-top: solid grey 2px;
+}
+
+
+#section_1 .section_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2vw;
+}
