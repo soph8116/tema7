@@ -1,0 +1,89 @@
+  <!DOCTYPE html>
+  <html lang="">
+
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title></title>
+      <link rel="stylesheet" href="">
+
+      <style>
+          #container {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+              grid-gap: 20px;
+          }
+
+          article {
+              margin: 0 auto;
+              padding: 2vw;
+          }
+
+      </style>
+  </head>
+
+  <body>
+
+      <section id="container">
+          <template>
+              <article id="liste">
+                  <h3></h3>
+                  <img src="" alt="">
+                  <p></p>
+              </article>
+          </template>
+      </section>
+
+      <script>
+          document.addEventListener("DOMContentLoaded", start);
+          let film = [{
+                  "billede": "https://odense-film-festival.s3.eu-central-1.amazonaws.com/media/W6dOqabNhHKBPXxxKKEZRA84-360.jpg",
+                  "navn": "A Calling",
+                  "om": "Film af Christian Bengtson"
+              },
+              {
+                  "billede": "https://odense-film-festival.s3.eu-central-1.amazonaws.com/media/hUd4SdGQ8I23ovxWnGtBz4Ck-360.jpg",
+                  "navn": "A Place in the sun",
+                  "om": "Film af Christian Zipfelt"
+              },
+              {
+                  "billede": "https://odense-film-festival.s3.eu-central-1.amazonaws.com/media/2iUOgQpixgIQCxyLtY6KiYuU-360.jpg",
+                  "navn": "A worthy man",
+                  "om": "Film af Kristian Højskjold"
+              }, {
+                  "billede": "https://odense-film-festival.s3.eu-central-1.amazonaws.com/media/DNkHPPokWA1EVqdGy6twHKeN-360.jpg",
+                  "navn": "Abu Aman",
+                  "om": "Film af Sylvia Fanu"
+              }, {
+                  "billede": "https://odense-film-festival.s3.eu-central-1.amazonaws.com/media/CaXyDHDWHhPAhBDxWVTr5LOz-360.jpg",
+                  "navn": "After",
+                  "om": "Film af Hanna Jalai"
+              }
+
+          ];
+
+
+          function start() {
+              console.log("dom er loaded");
+
+              const container = document.querySelector("#container");
+              const filmTemplate = document.querySelector("template");
+              const listevis = document.querySelector("#liste");
+
+              //listen loopes
+
+              film.forEach(film => {
+                  //udskriv i html
+                  let klon = filmTemplate.cloneNode(true).content;
+
+                  klon.querySelector("img").src = film.billede;
+                  klon.querySelector("h3").textContent = film.navn;
+                  klon.querySelector("p").textContent += film.om;
+                  container.appendChild(klon);
+              })
+          }
+
+      </script>
+  </body>
+
+  </html>
