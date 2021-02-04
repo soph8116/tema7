@@ -103,12 +103,12 @@
     <main>
         <h2>Giveaway</h2>
         <section>
-            <article>
+            <article class="box">
                 <img src="IMG/giveaway3-kopi.png" alt="billed af sophie med plakat">
                 <h3>Plakat "Venskab"</h3>
                 <p>P1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus adipisci modi eos dignissimos, eligendi soluta praesentium, eius accusamus doloremque veniam. Eius a nulla earum quas quaerat perspiciatis placeat! Et, impedit.</p>
             </article>
-            <article>
+            <article class="box">
                 <img src="IMG/giveaway1-kopi.png" alt="billed af plakat">
                 <h3>Flot plakat</h3>
                 <p>P2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus adipisci modi eos dignissimos, eligendi soluta praesentium, eius accusamus doloremque veniam. Eius a nulla earum quas quaerat perspiciatis placeat! Et, impedit.</p>
@@ -121,6 +121,8 @@
     <footer>
         <h4>Copyright Sophie Ohmsen</h4>
     </footer>
+
+
     <script>
         document.addEventListener("DOMContentLoaded", start);
 
@@ -138,6 +140,8 @@
             //lav tekst under h3
             let tekst = document.createElement("p");
             tekst.innerHTML = "du kan vinde fede præmier. Deltag via instagram";
+            //tilføjer box-shadow
+            newArticle.classList.add("box");
             //indsæt tekst i h3
             overskrift.appendChild(ph3);
             //tilføj h3 til artikel
