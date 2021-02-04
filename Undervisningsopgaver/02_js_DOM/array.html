@@ -13,13 +13,10 @@
     <ul id="display"></ul>
 
     <script>
-        const team = ["follow the sun", "Texas sun", "Tadow", "Mystery"]
+        const team = ["Follow the sun", "Texas sun", "Tadow", "Mystery"];
 
-        team.forEach(visHvertElement)
-
-        function visHvertElement(element) {
-            console.log(element);
-        }
+        //husk hvis du kun skriver +, så overskriver innerhtml hver gang jeg looper, derfor skal vi sætte: += så den ikke ersatter den gamle liste, men hele tiden looper et nyt. Nummer er et navn, jeg selv bestemmer. Repræsentere et element i mit array og for hvert nummer vil jeg tilføje et listeelement og nummers værdi, navnet (li + nummer). Foreach skaber et Loop og sørger den forsætter indtil der ikke længere er flere sangnavne at tage af.
+        team.forEach(nummer => display.innerHTML += "<li>" + nummer + "</li>")
 
     </script>
 </body>

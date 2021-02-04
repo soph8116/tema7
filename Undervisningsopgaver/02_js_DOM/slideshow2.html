@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Slideshow</title>
+</head>
+
+<body>
+    <h1>Tro på det...</h1>
+    <img src="billeder/img1.png" alt="billede 1">
+    <button>Videre</button>
+    <P>Billeder venligst udlånt af Rasmus Bregnhøi</P>
+
+    <script>
+        //lav en tæller, så mit array kan optælles
+        let number = 0;
+        //find billede
+        const billede = document.querySelector("img");
+        //opret array
+        let billeder = ["img1.png", "img2.png", "img3.png", "img4.png", "img5.png", "img6.png", "img7.png", "img8.png"];
+
+        // klik på knap for skifte billede
+        const knap = document.querySelector("button");
+        knap.addEventListener("click", skiftBillede);
+
+
+        //opret funktion til at skifte billede
+        function skiftBillede() {
+
+            billede.src = "billeder/" + billeder[number];
+            //så længe number er under 7, så skal den ligge en til,  så skal billedet skifte
+
+            if (number < 7) {
+                //tæl op, lagt 1 til
+                number++;
+                console.log(billeder[number]);
+                knap.textContent = "videre";
+            } else {
+                //KNAP SKIFTER TIL FORFRA
+                knap.textContent = "forfra";
+                //hvis den er over 7,skal den resettes til 0
+                number = 0;
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>
