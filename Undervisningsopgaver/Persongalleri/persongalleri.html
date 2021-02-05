@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Persongalleri</title>
+    <style>
+        body {
+            background-color: pink;
+            margin: 0 auto;
+
+        }
+
+        article {
+            border: 0.5px solid #ef9494;
+            border-radius: 18px;
+            padding: 10px;
+            margin: 1em;
+            background-color: wheat;
+            text-align: center;
+            color: #fd6ca9
+        }
+
+        img {
+            max-width: 350px;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-gap: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <main></main>
+
+    <template>
+        <article>
+            <img src="" alt="" class="billede">
+            <h2 class="navn"></h2>
+            <p class="efternavn"></p>
+            <p class="email"></p>
+        </article>
+    </template>
+
+    <script>
+        //url til min json url
+        const url = "https://persongalleri-e7c3.restdb.io/rest/personliste";
+
+        //Url til billeder på nettet. Derfor bruges "medieurl" i min kloning
+        const medieurl = "https://persongalleri-e7c3.restdb.io/media/";
+
+        //APIkey kommer fra restdb, vi skal have en nøgle, for at kunne bruge fetch
+        const options = {
+            headers: {
+                'x-apikey': "601d188d6adfba69db8b6ded"
+            }
+        };
+
+        //Fetch er en "Asynkron metode(AJAX)" = derfor async function, som gør det muligt at hente json data
+        async function hentData() {
+            const respons = await fetch(url, options);
+            const json = await respons.json();
+            vis(json);
+        }
+
+        const main = document.querySelector("main");
+        const template = document.querySelector("template").content;
+
+        //profilbilled,fornavn, efternavn er værdier fra restdb, som jeg selv har lavet. De skal derfor refereres hertil.
+        function vis(json) {
+            //løb igennem array "json-url"
+            json.forEach(person => {
+                const klon = template.cloneNode(true);
+                klon.querySelector(".billede").src = medieurl + person.profilbillede;
+                klon.querySelector(".navn").textContent += `${person.fornavn} ${person.efternavn}`;
+                klon.querySelector(".email").textContent = person.email;
+                main.appendChild(klon);
+            })
+        }
+
+        hentData();
+    </script>
+</body></html>
