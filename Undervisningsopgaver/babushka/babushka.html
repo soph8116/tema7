@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resturant Babushka</title>
+    <style>
+        body {
+            background-color: white;
+            margin: 0 auto;
+
+        }
+
+        article {
+            border: 0.5px solid #ef9494;
+            border-radius: 18px;
+            padding: 10px;
+            margin: 1em;
+            background-color: wheat;
+            text-align: center;
+            color: #fd6ca9
+        }
+
+        img {
+            max-width: 350px;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-gap: 20px;
+        }
+
+        .valgt {
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>BABUSHKA</h1>
+    <br>
+    <nav>
+        <button data-kategori="alle" class="valgt">Alle</button>
+        <button data-kategori="forretter">Forretter</button>
+        <button data-kategori="hovedretter">Hovedretter</button>
+        <button data-kategori="desserter">Desserter</button>
+        <button data-kategori="drikkevarer">Drikkevarer</button>
+    </nav>
+
+
+    <main></main>
+
+    <template>
+        <article>
+            <img src="" alt="" class="billed">
+            <h2 class="navn"></h2>
+            <p class="kort_beskrivelse"></p>
+            <p class="pris"></p>
+            <button class="detajler">Læs mere</button>
+        </article>
+    </template>
+
+    <script>
+        //url til min json url
+        const url = "https://babushka-dd8a.restdb.io/rest/menu";
+
+        //Url til billeder på nettet. Derfor bruges "medieurl" i min kloning
+        const medieurl = "https://babushka-dd8a.restdb.io/media/";
+
+        //variabel så vi kan skifte overskriften ift hvor brugeren befinder sig på sitet
+        const header = document.querySelector("h1");
+
+        //APIkey kommer fra restdb, vi skal have en nøgle, for at kunne bruge fetch
+        const options = {
+            headers: {
+                'x-apikey': "600ec2fb1346a1524ff12de4"
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", start)
+        let personer;
+        let filter = "alle";
+
+        // første funktion der kaldes efter DOM er loaded
+        function start() {
+            //vælger alle knapper med selctorALL
+            const filterknapper = document.querySelectorAll("nav button");
+            //add eventlisnternes på alle knapper
+            filterknapper.forEach(knap =>
+                knap.addEventListener("click", filtrermenu));
+
+            hentData();
+        }
+
+        function filtrermenu() {
+            //sætter variablen filter, så den viser data-troende for den knap som bliver trykket på
+            filter = this.dataset.kategori;
+            //fjern classen valgt fra den knap
+            document.querySelector(".valgt").classList.remove("valgt");
+            this.classList.add("valgt"); //marker den knap der er trykket på
+
+            visMenu(); //kalder funktionen visMenu efter det nye filter er sat
+
+            //skift h1 afhængig af hvilken katagori vi befinder os på
+            header.textContent = this.textContent;
+        }
+
+
+
+        //Fetch er en "Asynkron metode(AJAX)" = derfor async function, som gør det muligt at hente json data
+        async function hentData() {
+            const respons = await fetch(url, options);
+            const json = await respons.json();
+            visMenu();
+        }
+
+
+        function visMenu() {
+            const main = document.querySelector("main");
+            const template = document.querySelector("template").content;
+            main.textContent = ""; //rydder container inden et nyt loop
+
+
+            //løb igennem array "json"
+            json.forEach(ret => {
+                console.log("kategori", ret.kategori);
+                if (filter == ret.kategori || filter == "alle") {
+                    const klon = template.cloneNode(true);
+                    klon.querySelector(".billed").src = medieurl + ret.billede[0];
+                    klon.querySelector(".navn").textContent = ret.navn;
+                    klon.querySelector(".kort_beskrivelse").innerHTML = "<br>" + ret.kortbeskrivelse;
+                    klon.querySelector(".pris").textContent += `${ret.pris}kr,-`;
+                    klon.querySelector(".navn").textContent = ret.navn;
+                    main.appendChild(klon);
+                }
+
+            })
+        }
+
+        hentData();
+    </script>
+</body></html>
