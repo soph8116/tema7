@@ -3,46 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Resturant Babushka</title>
-    <style>
-        body {
-            background-color: white;
-            margin: 0 auto;
-
-        }
-
-        article {
-            border: 0.5px solid #ef9494;
-            border-radius: 18px;
-            padding: 10px;
-            margin: 1em;
-            background-color: wheat;
-            text-align: center;
-            color: #fd6ca9
-        }
-
-        img {
-            max-width: 350px;
-        }
-
-        main {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            grid-gap: 20px;
-        }
-
-        .valgt {
-            background-color: black;
-            color: white;
-            cursor: pointer;
-        }
-    </style>
+    <title>Restaurant Babushka</title>
+    <link rel="stylesheet" href="babushka.css">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <h1>BABUSHKA</h1>
+    <section id="section_1">
+        <div class="section_wrapper"></div>
+        <div id="arrow" class="bouncing"></div>
+    </section>
+
     <br>
-    <nav>
+    <br>
+    <br>
+
+    <h1>MENU</h1>
+    <br>
+    <nav id="filter">
         <button data-kategori="alle" class="valgt">Alle</button>
         <button data-kategori="forretter">Forretter</button>
         <button data-kategori="hovedretter">Hovedretter</button>
@@ -54,7 +35,7 @@
     <main></main>
 
     <template>
-        <article>
+        <article class="menu">
             <img src="" alt="" class="billed">
             <h2 class="navn"></h2>
             <p class="kort_beskrivelse"></p>
@@ -62,6 +43,17 @@
             <button class="detajler">Læs mere</button>
         </article>
     </template>
+
+    <footer>
+        <div class="grid_container">
+            <div id="kontakt">
+                <h2>Kontakt</h2>
+                <p>Hvis du ønsker takeaway eller at reservere et bord, kontakt os endelig:</p>
+                <p>Telefon: <a class="kontaktlink" href="tel:28559777" target="_blank">28 55 97 77</a></p>
+                <p>E-mail: <a class="kontaktlink" href="mailto:ohmsendesign@gmail.com" target="_blank">babushka@gmail.com</a></p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         //url til min json url
@@ -73,6 +65,8 @@
         //variabel så vi kan skifte overskriften ift hvor brugeren befinder sig på sitet
         const header = document.querySelector("h1");
 
+        let json;
+
         //APIkey kommer fra restdb, vi skal have en nøgle, for at kunne bruge fetch
         const options = {
             headers: {
@@ -81,7 +75,6 @@
         };
 
         document.addEventListener("DOMContentLoaded", start)
-        let personer;
         let filter = "alle";
 
         // første funktion der kaldes efter DOM er loaded
@@ -113,7 +106,10 @@
         //Fetch er en "Asynkron metode(AJAX)" = derfor async function, som gør det muligt at hente json data
         async function hentData() {
             const respons = await fetch(url, options);
-            const json = await respons.json();
+            json = await respons.json();
+
+            console.log("json", json);
+
             visMenu();
         }
 
@@ -134,12 +130,19 @@
                     klon.querySelector(".kort_beskrivelse").innerHTML = "<br>" + ret.kortbeskrivelse;
                     klon.querySelector(".pris").textContent += `${ret.pris}kr,-`;
                     klon.querySelector(".navn").textContent = ret.navn;
+                    klon.querySelector(".detajler").addEventListener("click", () => visDeltaljer(ret));
                     main.appendChild(klon);
                 }
 
             })
         }
 
-        hentData();
+        //"hvad" er egentlig det samme som værdien "ret" ovenover
+        function visDeltaljer(hvad) {
+            location.href = `menu-detaljer.html?id=${hvad._id}`;
+        }
+
     </script>
-</body></html>
+</body>
+
+</html>

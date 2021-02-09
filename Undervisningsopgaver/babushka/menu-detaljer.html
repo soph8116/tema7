@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Babushka</title>
+    <link rel="stylesheet" href="babushka.css">
+</head>
+
+<style>
+    article {
+        margin: 5em;
+    }
+
+    button {
+        margin-left: 5vw;
+    }
+
+</style>
+
+<body>
+
+    <h1>RESTAURANT BABUSHKA</h1>
+
+    <article class="menu">
+        <h2 class="navn"></h2>
+        <img src="" alt="" class="billed">
+        <p class="lang_beskrivelse"></p>
+        <p class="pris"></p>
+    </article>
+
+    <button>Tilbage</button>
+
+    <footer>
+        <div class="grid_container">
+            <div id="kontakt">
+                <h2>Kontakt</h2>
+                <p>Hvis du ønsker takeaway eller at reservere et bord, kontakt os endelig:</p>
+                <p>Telefon: <a class="kontaktlink" href="tel:28559777" target="_blank">28 55 97 77</a></p>
+                <p>E-mail: <a class="kontaktlink" href="mailto:ohmsendesign@gmail.com" target="_blank">babushka@gmail.com</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+
+        //Url til billeder på nettet. Derfor bruges "medieurl" i min kloning
+        const medieurl = "https://babushka-dd8a.restdb.io/media/";
+
+
+        let mad;
+
+        const myHeaders = {
+            'x-apikey': "600ec2fb1346a1524ff12de4"
+        };
+
+
+        console.log("ID", id);
+
+        document.addEventListener("DOMContentLoaded", loadJSON)
+
+        async function loadJSON() {
+            const JSONData = await fetch(`https://babushka-dd8a.restdb.io/rest/menu/${id}`, {
+                headers: myHeaders
+            });
+            mad = await JSONData.json();
+
+            console.log("Mad", mad);
+
+            visRet(mad);
+        }
+
+
+        function visRet() {
+            document.querySelector(".navn").textContent = mad.navn;
+            document.querySelector(".billed").src = medieurl + mad.billede;
+            document.querySelector(".lang_beskrivelse").textContent = mad.langbeskrivelse;
+
+            document.querySelector(".pris").textContent += `${mad.pris}kr,-`;
+            document.querySelector("button").addEventListener("click", tilbageTilMenu);
+        }
+
+        function tilbageTilMenu() {
+            history.back();
+        }
+
+    </script>
+</body>
+
+</html>

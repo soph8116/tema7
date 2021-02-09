@@ -1,0 +1,246 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f7cece;
+}
+
+article {
+    border: 0.5px solid #d5edd8;
+    border-radius: 18px;
+    padding: 20px;
+    margin: 1em;
+    background-color: #f7f0f0;
+    text-align: center;
+    color: #fd6ca9
+}
+
+img {
+    max-width: 350px;
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 20px;
+    margin-bottom: 10vw;
+}
+
+.valgt {
+    background-color: #b9464b;
+    color: white;
+    cursor: pointer;
+}
+
+button {
+    color: #b9464b;
+    width: 10vw;
+    height: 2.5vw;
+    border-radius: 10px;
+    border: 1px solid #d5edd8;
+    font-family: 'Hammersmith One', sans-serif;
+    text-transform: uppercase;
+    margin-left: 1vw;
+    margin-bottom: 3vw;
+    cursor: pointer;
+}
+
+#filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: 20vw;
+    margin-right: 20vw;
+    padding-bottom: 3vw;
+
+}
+
+/*******ANIMATIONER*****/
+
+.hidden {
+    opacity: 0;
+    transform: translateX(-10%);
+}
+
+
+.billed:hover {
+    cursor: pointer;
+    animation: billede_scale 0.2s infinite;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+
+}
+
+@keyframes billede_scale {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.01);
+    }
+}
+
+
+
+/******tekst-style*******/
+
+h1 {
+    font-family: 'Hammersmith One', sans-serif;
+    font-size: 3rem;
+    color: #b9464b;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Hammersmith One', sans-serif;
+    font-size: 2.5rem;
+    color: #b9464b;
+    margin-bottom: 0.5vw;
+    margin-left: auto;
+    margin-right: auto;
+    text-transform: uppercase;
+}
+
+p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.4rem;
+    color: #d06f73;
+    font-weight: 300;
+    line-height: 2.5rem;
+    text-align: center;
+
+}
+
+
+/*******SPLASHBILLEDE******/
+
+
+#section_1 {
+    background-image: url(img/babushka.png);
+    background-size: cover;
+    max-width: none;
+    width: 100%;
+    height: 100vh;
+
+}
+
+#arrow {
+    background-image: url(img/pil.svg);
+    background-size: cover;
+    width: 5vw;
+    height: 3vw;
+    margin-left: 47.5vw;
+    z-index: 0;
+    position: relative;
+    top: 44vw;
+}
+
+.bouncing {
+    animation-name: bouncing_kf;
+    animation-duration: 0.7s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes bouncing_kf {
+    from {
+        transform: translateY(0vw);
+    }
+
+    to {
+        transform: translateY(-1vw);
+    }
+}
+
+
+
+/*******FOOTER******/
+
+footer {
+    background-color: #f7cece;
+    padding: 3vw;
+    border-top: solid #d5edd8 4px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #d06f73;
+    font-size: 1.5rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    position: relative;
+}
+
+footer p {
+    color: #d06f73;
+    font-size: 1.5rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    position: relative;
+    text-align: left;
+}
+
+footer a.kontaktlink::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #b9464b;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s;
+}
+
+footer a.kontaktlink:hover::before {
+    visibility: visible;
+    transform: scaleX(1);
+}
+
+footer a.kontaktlink:visited {
+    color: #b9464b;
+}
+
+footer a.kontaktlink:active {
+    color: #b9464b;
+}
+
+footer a.kontaktlink:hover {
+    color: #b9464b;
+}
+
+
+/*****@media*****/
+@media only screen and (min-width: 320px) and (max-width: 600px) {
+    #section_1 {
+        background-image: url(img/babushka.png);
+        background-size: cover;
+        width: 100%;
+        height: 37vh;
+
+    }
+
+    button {
+        color: #b9464b;
+        width: 20vw;
+        height: 6.5vw;
+        border-radius: 10px;
+        border: 1px solid #d5edd8;
+        font-family: 'Hammersmith One', sans-serif;
+        text-transform: uppercase;
+        margin: 1vw;
+
+    }
+
+}
