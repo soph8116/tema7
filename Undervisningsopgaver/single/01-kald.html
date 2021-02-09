@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        #liste {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-gap: 1em;
+            margin: 2em;
+        }
+
+        .person {
+            padding: 1em;
+            border: 1px solid;
+            border-radius: 1em;
+        }
+
+        .valgt {
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Alle</h1>
+
+    <nav>
+        <button data-troende="alle" class="valgt">Alle</button>
+        <button data-troende="ja">Troende</button>
+        <button data-troende="nej">Ikke troende</button>
+        <button data-troende="tviler">Tvivler</button>
+    </nav>
+
+    <section id="liste"></section>
+
+    <template>
+        <article class="person">
+            <h2 class="navn"></h2>
+            <p class="køn"></p>
+            <img src="" alt="" class="profil-billede">
+        </article>
+    </template>
+
+
+    <script>
+        const header = document.querySelector("h1");
+        const medieurl = "https://persongalleri-5d3e.restdb.io/media/";
+        const myHeaders = {
+
+            "x-apikey": "600fe9211346a1524ff12e31"
+        }
+        document.addEventListener("DOMContentLoaded", start)
+        let personer;
+        let filter = "alle";
+
+        // første funktion der kaldes efter DOM er loaded
+        function start() {
+            //vælger alle knapper med selctorALL
+            const filterknapper = document.querySelectorAll("nav button");
+            //add eventlisnternes på alle knapper
+            filterknapper.forEach(knap =>
+                knap.addEventListener("click", filtrerpersoner));
+
+            loadJSON();
+        }
+
+        function filtrerpersoner() {
+            //sætter variablen filter, så den viser data-troende for den knap som bliver trykket på
+            filter = this.dataset.troende;
+            //fjern classen valgt fra den knap
+            document.querySelector(".valgt").classList.remove("valgt");
+            this.classList.add("valgt"); //marker den knap der er trykket på
+            visPersoner(); //kalder funktionen visPersonerefter det nye filter er sat
+
+            //skift h1 afhængig af hvilken katagori vi befinder os på
+            header.textContent = this.textContent;
+        }
+
+
+
+        async function loadJSON() {
+            const JSONData = await fetch("https://persongalleri-5d3e.restdb.io/rest/persongalleri", {
+                headers: myHeaders
+            });
+            personer = await JSONData.json();
+            console.log("Personer", personer);
+            visPersoner();
+        }
+
+        //funktion der viser personer i liste view
+        function visPersoner() {
+            const dest = document.querySelector("#liste"); // container til articles med en person
+            const skabelon = document.querySelector("template").content; // select indhold af html skabelon (article)
+            dest.textContent = ""; //rydder container inden et nyt loop
+
+            // loop igennem json (personer)
+            personer.forEach(person => {
+                console.log("troende", person.troende);
+                //tjek hvilken tro personerne har ved at sammenligne med det aktuel filter eller hvis værdien "alle"
+                if (filter == person.troende || filter == "alle") {
+                    const klon = skabelon.cloneNode(true);
+                    klon.querySelector(".navn").textContent = person.fornavn + " " + person.efternavn;
+                    klon.querySelector(".profil-billede").src = medieurl + person.billede;
+                    klon.querySelector(".person").addEventListener("click", () => visDeltaljer(person));
+                    dest.appendChild(klon);
+                }
+
+            })
+        }
+
+        //"hvem" er egentlig det samme som værdien "person" ovenover, vi laver den bare om for ikke at forvirre
+
+        function visDeltaljer(hvem) {
+            location.href = `02-detalje.html?id=${hvem._id}`;
+        }
+
+    </script>
+</body>
+
+</html>
